@@ -23,7 +23,7 @@ class Sector_company(Resource):
         args=parser.parse_args()
         #sector_list=["Automobile","Constructon","Finance","FMCG","HealthCare","Metals_Chemicals","Power","Technology"]
         sector_file_list=list(os.listdir('D:\WP_project\src\csv_files'))
-        print(sector_file_list)
+        #print(sector_file_list)
         sector=args['sector_name']
         company=args['company_name']
         document=args['document_type']
@@ -31,19 +31,23 @@ class Sector_company(Resource):
         csv_list=[]
         if(sector=="Automobile"):
             csv_list=list(os.listdir('D:\WP_project\src\csv_files\Automobile'))
-            print("List of excel files:",csv_list)
+            #print("List of excel files:",csv_list)
             comp=company +".xlsx"
             if comp in csv_list:
                 string_path= 'D:\WP_project\src\csv_files\Automobile\\'+comp
                 print("File path:",string_path)
-                profit_loss_df=pd.read_excel (string_path,sheet_name="Profit & Loss")
-                print("Profit & Loss df:")
+                #pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df=pd.read_excel(string_path,sheet_name="Data Sheet")
+                #print("Data Sheet df:")
+                #print(data_sheet_df)
+                profit_loss_df=pd.read_excel(string_path,sheet_name="Data Sheet",header=15,skipfooter=62)
+                print("Profit & Loss Sheet:")
                 print(profit_loss_df)
-                balance_sheet_df=pd.read_excel(string_path,sheet_name="Balance Sheet")
-                print("Balance Sheet df:")
+                balance_sheet_df=pd.read_excel(string_path,sheet_name="Data Sheet",header=55,skipfooter=21)
+                print("Balance sheet:")
                 print(balance_sheet_df)
-                cashflow_df=pd.read_excel(string_path,sheet_name="Cash Flow")
-                print("Cash Flow df:")
+                cashflow_df=pd.read_excel(string_path,sheet_name="Data Sheet",header=80,skipfooter=8)
+                print("Cashflow Sheet:")
                 print(cashflow_df)
                 return {"data":True} 
             else:
