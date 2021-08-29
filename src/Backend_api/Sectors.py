@@ -44,23 +44,24 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document=="Profit Loss"):
-                    
+                if(document == "Profit Loss"):
+
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     print(profit_loss_df)
-                elif(document=="Balance Sheet"):
-                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                elif(document == "Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
                     print(balance_sheet_df)
-                elif(document=="Cashflow"):
+                elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
-                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                        string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
                     print(cashflow_df)
                 else:
-                    return {"data":"Invalid document"}
+                    return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
@@ -77,23 +78,24 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document=="Profit Loss"):
-                    
+                if(document == "Profit Loss"):
+
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     print(profit_loss_df)
-                elif(document=="Balance Sheet"):
-                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                elif(document == "Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
                     print(balance_sheet_df)
-                elif(document=="Cashflow"):
+                elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
-                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                        string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
                     print(cashflow_df)
                 else:
-                    return {"data":"Invalid document"}
+                    return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
@@ -109,23 +111,24 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document=="Profit Loss"):
-                    
+                if(document == "Profit Loss"):
+
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     print(profit_loss_df)
-                elif(document=="Balance Sheet"):
-                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                elif(document == "Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
                     print(balance_sheet_df)
-                elif(document=="Cashflow"):
+                elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
-                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                        string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
                     print(cashflow_df)
                 else:
-                    return {"data":"Invalid document"}
+                    return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
@@ -142,23 +145,24 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document=="Profit Loss"):
-                    
+                if(document == "Profit Loss"):
+
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     print(profit_loss_df)
-                elif(document=="Balance Sheet"):
-                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                elif(document == "Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
                     print(balance_sheet_df)
-                elif(document=="Cashflow"):
+                elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
-                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                        string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
                     print(cashflow_df)
                 else:
-                    return {"data":"Invalid document"}
+                    return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
@@ -175,23 +179,24 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document=="Profit Loss"):
-                    
+                if(document == "Profit Loss"):
+
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     print(profit_loss_df)
-                elif(document=="Balance Sheet"):
-                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                elif(document == "Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
                     print(balance_sheet_df)
-                elif(document=="Cashflow"):
+                elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
-                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                        string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
                     print(cashflow_df)
                 else:
-                    return {"data":"Invalid document"}
+                    return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
@@ -208,23 +213,24 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document=="Profit Loss"):
-                    
+                if(document == "Profit Loss"):
+
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     print(profit_loss_df)
-                elif(document=="Balance Sheet"):
-                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                elif(document == "Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
                     print(balance_sheet_df)
-                elif(document=="Cashflow"):
+                elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
-                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                        string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
                     print(cashflow_df)
                 else:
-                    return {"data":"Invalid document"}
+                    return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
@@ -241,23 +247,24 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document=="Profit Loss"):
-                    
+                if(document == "Profit Loss"):
+
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     print(profit_loss_df)
-                elif(document=="Balance Sheet"):
-                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                elif(document == "Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
                     print(balance_sheet_df)
-                elif(document=="Cashflow"):
+                elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
-                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                        string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
                     print(cashflow_df)
                 else:
-                    return {"data":"Invalid document"}
+                    return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
@@ -276,23 +283,24 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document=="Profit Loss"):
-                    
+                if(document == "Profit Loss"):
+
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     print(profit_loss_df)
-                elif(document=="Balance Sheet"):
-                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                elif(document == "Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
                     print(balance_sheet_df)
-                elif(document=="Cashflow"):
+                elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
-                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                        string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
                     print(cashflow_df)
                 else:
-                    return {"data":"Invalid document"}
+                    return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
