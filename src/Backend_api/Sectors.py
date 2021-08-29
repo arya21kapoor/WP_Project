@@ -1,86 +1,309 @@
 from flask import Flask
-from flask_restful import Resource,Api,reqparse
-import pandas as pd 
+from flask_restful import Resource, Api, reqparse
+import pandas as pd
 import ast
 import os
 
-#Initialising the flask api
-app= Flask(__name__)
-api=Api(app)
+# Initialising the flask api
+app = Flask(__name__)
+api = Api(app)
 
-#Created Sector_company as an endpoint
+# Created Sector_company as an endpoint
+
+
 class Sector_company(Resource):
     def get(self):
 
         print("Sector_company class running...")
-        #Initializing the parser
-        parser=reqparse.RequestParser()
-        #Adding parser arguments
-        parser.add_argument('sector_name',required=False)
-        parser.add_argument('company_name',required=False)
-        parser.add_argument('document_type',required=False)
-        #Creating argument dictionary
-        args=parser.parse_args()
-        #sector_list=["Automobile","Constructon","Finance","FMCG","HealthCare","Metals_Chemicals","Power","Technology"]
-        sector_file_list=list(os.listdir('D:\WP_project\src\csv_files'))
-        #print(sector_file_list)
-        sector=args['sector_name']
-        company=args['company_name']
-        document=args['document_type']
-        #Created list of csv_files under each sector
-        csv_list=[]
-        if(sector=="Automobile"):
-            csv_list=list(os.listdir('D:\WP_project\src\csv_files\Automobile'))
+        # Initializing the parser
+        parser = reqparse.RequestParser()
+        # Adding parser arguments
+        parser.add_argument('sector_name', required=False)
+        parser.add_argument('company_name', required=False)
+        parser.add_argument('document_type', required=False)
+        # Creating argument dictionary
+        args = parser.parse_args()
+        # sector_list=["Automobile","Constructon","Finance","FMCG","HealthCare","Metals_Chemicals","Power","Technology"]
+        sector_file_list = list(os.listdir('D:\WP_project\src\csv_files'))
+        # print(sector_file_list)
+        sector = args['sector_name']
+        company = args['company_name']
+        document = args['document_type']
+        # Created list of csv_files under each sector
+        csv_list = []
+        if(sector == "Automobile"):
+            csv_list = list(os.listdir(
+                'D:\WP_project\src\csv_files\Automobile'))
             #print("List of excel files:",csv_list)
-            comp=company +".xlsx"
+            comp = company + ".xlsx"
             if comp in csv_list:
-                string_path= 'D:\WP_project\src\csv_files\Automobile\\'+comp
-                print("File path:",string_path)
-                #pd.set_option('display.max_rows',None,'display.max_columns',None)
-                data_sheet_df=pd.read_excel(string_path,sheet_name="Data Sheet")
+                string_path = 'D:\WP_project\src\csv_files\Automobile\\'+comp
+                print("File path:", string_path)
+                # pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
-                #print(data_sheet_df)
-                profit_loss_df=pd.read_excel(string_path,sheet_name="Data Sheet",header=15,skipfooter=62)
-                print("Profit & Loss Sheet:")
-                print(profit_loss_df)
-                balance_sheet_df=pd.read_excel(string_path,sheet_name="Data Sheet",header=55,skipfooter=21)
-                print("Balance sheet:")
-                print(balance_sheet_df)
-                cashflow_df=pd.read_excel(string_path,sheet_name="Data Sheet",header=80,skipfooter=8)
-                print("Cashflow Sheet:")
-                print(cashflow_df)
-                return {"data":True} 
+                # print(data_sheet_df)
+                if(document=="Profit Loss"):
+                    
+                    profit_loss_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
+                    print("Profit & Loss Sheet:")
+                    print(profit_loss_df)
+                elif(document=="Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                    print("Balance sheet:")
+                    print(balance_sheet_df)
+                elif(document=="Cashflow"):
+                    cashflow_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                    print("Cashflow Sheet:")
+                    print(cashflow_df)
+                else:
+                    return {"data":"Invalid document"}
+                return {"data": True}
             else:
-                return {"data":False}
-        elif(sector=="Construction"):
-            csv_list=list(os.listdir('D:\WP_project\src\csv_files\Construction'))
-            print("List of excel files:",csv_list)
+                return {"data": False}
 
-        elif(sector=="Finance"):
-            csv_list=list(os.listdir('D:\WP_project\src\csv_files\Finance'))
-            print("List of csv files:",csv_list)
-        elif(sector=="FMCG"):
-            csv_list=list(os.listdir('D:\WP_project\src\csv_files\FMCG'))
-            print("List of csv files:",csv_list)
-        elif(sector=="HealthCare"):
-            csv_list=list(os.listdir('D:\WP_project\src\csv_files\HealthCare'))
-            print("List of csv files:",csv_list)
-        elif(sector=="Metals_Chemicals"):
-            csv_list=list(os.listdir('D:\WP_project\src\csv_files\Metals_Chemicals'))
-            print("List of csv files:",csv_list)
-        elif(sector=="Power"):
-            csv_list=list(os.listdir('D:\WP_project\src\csv_files\Power'))
-            print("List of csv files:",csv_list)
-        elif(sector=="Technology"):
-            csv_list=list(os.listdir('D:\WP_project\src\csv_files\Technology'))
-            print("List of csv files:",csv_list)
+        elif(sector == "Finance"):
+            csv_list = list(os.listdir('D:\WP_project\src\csv_files\Finance'))
+            print("List of csv files:", csv_list)
+            comp = company + ".xlsx"
+            if comp in csv_list:
+                string_path = 'D:\WP_project\src\csv_files\Finance\\'+comp
+                print("File path:", string_path)
+                # pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet")
+                #print("Data Sheet df:")
+                # print(data_sheet_df)
+                if(document=="Profit Loss"):
+                    
+                    profit_loss_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
+                    print("Profit & Loss Sheet:")
+                    print(profit_loss_df)
+                elif(document=="Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                    print("Balance sheet:")
+                    print(balance_sheet_df)
+                elif(document=="Cashflow"):
+                    cashflow_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                    print("Cashflow Sheet:")
+                    print(cashflow_df)
+                else:
+                    return {"data":"Invalid document"}
+                return {"data": True}
+            else:
+                return {"data": False}
+        elif(sector == "FMCG"):
+            csv_list = list(os.listdir('D:\WP_project\src\csv_files\FMCG'))
+            print("List of csv files:", csv_list)
+            comp = company + ".xlsx"
+            if comp in csv_list:
+                string_path = 'D:\WP_project\src\csv_files\FMCG\\'+comp
+                print("File path:", string_path)
+                # pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet")
+                #print("Data Sheet df:")
+                # print(data_sheet_df)
+                if(document=="Profit Loss"):
+                    
+                    profit_loss_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
+                    print("Profit & Loss Sheet:")
+                    print(profit_loss_df)
+                elif(document=="Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                    print("Balance sheet:")
+                    print(balance_sheet_df)
+                elif(document=="Cashflow"):
+                    cashflow_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                    print("Cashflow Sheet:")
+                    print(cashflow_df)
+                else:
+                    return {"data":"Invalid document"}
+                return {"data": True}
+            else:
+                return {"data": False}
+        elif(sector == "HealthCare"):
+            csv_list = list(os.listdir(
+                'D:\WP_project\src\csv_files\HealthCare'))
+            print("List of csv files:", csv_list)
+            comp = company + ".xlsx"
+            if comp in csv_list:
+                string_path = 'D:\WP_project\src\csv_files\HealthCare\\'+comp
+                print("File path:", string_path)
+                # pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet")
+                #print("Data Sheet df:")
+                # print(data_sheet_df)
+                if(document=="Profit Loss"):
+                    
+                    profit_loss_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
+                    print("Profit & Loss Sheet:")
+                    print(profit_loss_df)
+                elif(document=="Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                    print("Balance sheet:")
+                    print(balance_sheet_df)
+                elif(document=="Cashflow"):
+                    cashflow_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                    print("Cashflow Sheet:")
+                    print(cashflow_df)
+                else:
+                    return {"data":"Invalid document"}
+                return {"data": True}
+            else:
+                return {"data": False}
+        elif(sector == "Metals_Chemicals"):
+            csv_list = list(os.listdir(
+                'D:\WP_project\src\csv_files\Metals_Chemicals'))
+            print("List of csv files:", csv_list)
+            comp = company + ".xlsx"
+            if comp in csv_list:
+                string_path = 'D:\WP_project\src\csv_files\Metals_Chemicals\\'+comp
+                print("File path:", string_path)
+                # pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet")
+                #print("Data Sheet df:")
+                # print(data_sheet_df)
+                if(document=="Profit Loss"):
+                    
+                    profit_loss_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
+                    print("Profit & Loss Sheet:")
+                    print(profit_loss_df)
+                elif(document=="Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                    print("Balance sheet:")
+                    print(balance_sheet_df)
+                elif(document=="Cashflow"):
+                    cashflow_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                    print("Cashflow Sheet:")
+                    print(cashflow_df)
+                else:
+                    return {"data":"Invalid document"}
+                return {"data": True}
+            else:
+                return {"data": False}
+        elif(sector == "Construction"):
+            csv_list = list(os.listdir(
+                'D:\WP_project\src\csv_files\Construction'))
+            print("List of csv files:", csv_list)
+            comp = company + ".xlsx"
+            if comp in csv_list:
+                string_path = 'D:\WP_project\src\csv_files\Construction\\'+comp
+                print("File path:", string_path)
+                # pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet")
+                #print("Data Sheet df:")
+                # print(data_sheet_df)
+                if(document=="Profit Loss"):
+                    
+                    profit_loss_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
+                    print("Profit & Loss Sheet:")
+                    print(profit_loss_df)
+                elif(document=="Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                    print("Balance sheet:")
+                    print(balance_sheet_df)
+                elif(document=="Cashflow"):
+                    cashflow_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                    print("Cashflow Sheet:")
+                    print(cashflow_df)
+                else:
+                    return {"data":"Invalid document"}
+                return {"data": True}
+            else:
+                return {"data": False}
+
+        elif(sector == "Power"):
+            csv_list = list(os.listdir('D:\WP_project\src\csv_files\Power'))
+            print("List of csv files:", csv_list)
+            comp = company + ".xlsx"
+            if comp in csv_list:
+                string_path = 'D:\WP_project\src\csv_files\Power\\'+comp
+                print("File path:", string_path)
+                # pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet")
+                #print("Data Sheet df:")
+                # print(data_sheet_df)
+                if(document=="Profit Loss"):
+                    
+                    profit_loss_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
+                    print("Profit & Loss Sheet:")
+                    print(profit_loss_df)
+                elif(document=="Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                    print("Balance sheet:")
+                    print(balance_sheet_df)
+                elif(document=="Cashflow"):
+                    cashflow_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                    print("Cashflow Sheet:")
+                    print(cashflow_df)
+                else:
+                    return {"data":"Invalid document"}
+                return {"data": True}
+            else:
+                return {"data": False}
+
+        elif(sector == "Technology"):
+            csv_list = list(os.listdir(
+                'D:\WP_project\src\csv_files\Technology'))
+            print("List of csv files:", csv_list)
+            comp = company + ".xlsx"
+            print(comp)
+            if comp in csv_list:
+                string_path = 'D:\WP_project\src\csv_files\Technology\\'+comp
+                print("File path:", string_path)
+                # pd.set_option('display.max_rows',None,'display.max_columns',None)
+                data_sheet_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet")
+                #print("Data Sheet df:")
+                # print(data_sheet_df)
+                if(document=="Profit Loss"):
+                    
+                    profit_loss_df = pd.read_excel(
+                        string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
+                    print("Profit & Loss Sheet:")
+                    print(profit_loss_df)
+                elif(document=="Balance Sheet"):
+                    balance_sheet_df = pd.read_excel(string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
+                    print("Balance sheet:")
+                    print(balance_sheet_df)
+                elif(document=="Cashflow"):
+                    cashflow_df = pd.read_excel(
+                    string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
+                    print("Cashflow Sheet:")
+                    print(cashflow_df)
+                else:
+                    return {"data":"Invalid document"}
+                return {"data": True}
+            else:
+                return {"data": False}
+
         else:
-            csv_list=[]
+            csv_list = []
 
-        #Returning the csv_files_dictionary
-        #return {'data':csv_list}
-#Added this class for the endpoint /sectors
-api.add_resource(Sector_company,'/sectors')
+        # Returning the csv_files_dictionary
+        # return {'data':csv_list}
+# Added this class for the endpoint /sectors
+api.add_resource(Sector_company, '/sectors')
 
-if __name__ =="__main__":
+if __name__ == "__main__":
     app.run()
