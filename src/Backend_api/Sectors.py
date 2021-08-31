@@ -3,6 +3,7 @@ from flask_restful import Resource, Api, reqparse
 import pandas as pd
 import ast
 import os
+from datetime import datetime
 
 # Initialising the flask api
 app = Flask(__name__)
@@ -31,6 +32,7 @@ class Sector_company(Resource):
         document = args['document_type']
         # Created list of csv_files under each sector
         csv_list = []
+        return_df=pd.DataFrame()
         if(sector == "Automobile"):
             csv_list = list(os.listdir(
                 'D:\WP_project\src\csv_files\Automobile'))
@@ -49,23 +51,26 @@ class Sector_company(Resource):
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
-                    print(profit_loss_df)
+                    return_df=profit_loss_df
+                    return_df=profit_loss_df
                 elif(document == "Balance Sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
-                    print(balance_sheet_df)
+                    return_df=balance_sheet_df
+                    return_df=balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
-                    print(cashflow_df)
+                    return_df=cashflow_df
+                    return_df=cashflow_df
                 else:
                     return {"data": "Invalid document"}
-                return {"data": True}
-            else:
-                return {"data": False}
 
+            else:
+                return {"data":"Invalid company"}
+    
         elif(sector == "Finance"):
             csv_list = list(os.listdir('D:\WP_project\src\csv_files\Finance'))
             print("List of csv files:", csv_list)
@@ -83,22 +88,24 @@ class Sector_company(Resource):
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
-                    print(profit_loss_df)
+                    return_df=profit_loss_df
+                    return_df=profit_loss_df
                 elif(document == "Balance Sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
-                    print(balance_sheet_df)
+                    return_df=balance_sheet_df
+                    return_df=balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
-                    print(cashflow_df)
+                    return_df=cashflow_df
+                    return_df=cashflow_df
                 else:
                     return {"data": "Invalid document"}
-                return {"data": True}
             else:
-                return {"data": False}
+                return {"data": "Invalid company"}
         elif(sector == "FMCG"):
             csv_list = list(os.listdir('D:\WP_project\src\csv_files\FMCG'))
             print("List of csv files:", csv_list)
@@ -116,22 +123,25 @@ class Sector_company(Resource):
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
-                    print(profit_loss_df)
+                    return_df=profit_loss_df
+                    return_df=profit_loss_df
                 elif(document == "Balance Sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
-                    print(balance_sheet_df)
+                    return_df=balance_sheet_df
+                    return_df=balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
-                    print(cashflow_df)
+                    return_df=cashflow_df
+                    return_df=cashflow_df
                 else:
                     return {"data": "Invalid document"}
-                return {"data": True}
+                
             else:
-                return {"data": False}
+                return {"data": "Invalid documnet"}
         elif(sector == "HealthCare"):
             csv_list = list(os.listdir(
                 'D:\WP_project\src\csv_files\HealthCare'))
@@ -150,22 +160,24 @@ class Sector_company(Resource):
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
-                    print(profit_loss_df)
+                    return_df=profit_loss_df
+                    return_df=profit_loss_df
                 elif(document == "Balance Sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
-                    print(balance_sheet_df)
+                    return_df=balance_sheet_df
+                    return_df=balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
-                    print(cashflow_df)
+                    return_df=cashflow_df
+                    return_df=cashflow_df
                 else:
                     return {"data": "Invalid document"}
-                return {"data": True}
             else:
-                return {"data": False}
+                return {"data": "Invalid company"}
         elif(sector == "Metals_Chemicals"):
             csv_list = list(os.listdir(
                 'D:\WP_project\src\csv_files\Metals_Chemicals'))
@@ -184,22 +196,24 @@ class Sector_company(Resource):
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
-                    print(profit_loss_df)
+                    return_df=profit_loss_df
+                    return_df=profit_loss_df
                 elif(document == "Balance Sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
-                    print(balance_sheet_df)
+                    return_df=balance_sheet_df
+                    return_df=balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
-                    print(cashflow_df)
+                    return_df=cashflow_df
+
                 else:
                     return {"data": "Invalid document"}
-                return {"data": True}
             else:
-                return {"data": False}
+                return {"data":"Invalid company"}
         elif(sector == "Construction"):
             csv_list = list(os.listdir(
                 'D:\WP_project\src\csv_files\Construction'))
@@ -218,22 +232,21 @@ class Sector_company(Resource):
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
-                    print(profit_loss_df)
+                    return_df=profit_loss_df
                 elif(document == "Balance Sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
-                    print(balance_sheet_df)
+                    return_df=balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
-                    print(cashflow_df)
+                    return_df=cashflow_df
                 else:
                     return {"data": "Invalid document"}
-                return {"data": True}
             else:
-                return {"data": False}
+                return {"data": "Invalid company"}
 
         elif(sector == "Power"):
             csv_list = list(os.listdir('D:\WP_project\src\csv_files\Power'))
@@ -252,22 +265,21 @@ class Sector_company(Resource):
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
-                    print(profit_loss_df)
+                    return_df=profit_loss_df
                 elif(document == "Balance Sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
-                    print(balance_sheet_df)
+                    return_df=balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
-                    print(cashflow_df)
+                    return_df=cashflow_df
                 else:
                     return {"data": "Invalid document"}
-                return {"data": True}
             else:
-                return {"data": False}
+                return {"data": "Invalid company"}
 
         elif(sector == "Technology"):
             csv_list = list(os.listdir(
@@ -288,26 +300,44 @@ class Sector_company(Resource):
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
-                    print(profit_loss_df)
+                    return_df=profit_loss_df
                 elif(document == "Balance Sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
                     print("Balance sheet:")
-                    print(balance_sheet_df)
+                    return_df=balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=80, skipfooter=8)
                     print("Cashflow Sheet:")
-                    print(cashflow_df)
+                    return_df=cashflow_df
                 else:
                     return {"data": "Invalid document"}
                 return {"data": True}
             else:
                 return {"data": False}
-
+            
         else:
-            csv_list = []
+            return {"data":"Invalid sector"}
+        
+        columns=list(return_df.columns.values)
+        print("Columns:",columns)
 
+        #rows=list(return_df.rows)
+        no_rows=len(return_df.index)
+        return_list=[]
+        for i in range(0,no_rows):
+            return_dict={}
+            for j in range(1,len(columns)):
+                #column_name=column[j]
+                #print("i:",i," j:",j)
+                #print(return_df.iloc[i][j])
+                date=columns[j].strftime("%m/%d/%y")
+                return_dict[date]=return_df.iloc[i][j]
+            print("Return_dict",(i+1),":",return_dict)
+            return_list.append(return_dict)
+        return {"data":return_list}
+        #print("Return list:",return_list)
         # Returning the csv_files_dictionary
         # return {'data':csv_list}
 # Added this class for the endpoint /sectors
