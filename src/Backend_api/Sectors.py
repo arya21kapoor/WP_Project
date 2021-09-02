@@ -362,14 +362,28 @@ class Sector_rankings(Resource):
             print("Sector name:",sector)
             path="D:\WP_project\src\csv_files\\"+sector
             csv_list=list(os.listdir(path))
+            market_cap_list=[]
+            pe_ratio_list=[]
+            profit_growth_list=[]
             for i in csv_list:
                 company_path=path+"\\"+i
                 company_df=pd.read_excel(company_path,sheet_name="Data Sheet")
                 print("Company df:",company_df)
                 market_cap=company_df.loc[7].iat[1]
                 print("Market cap:",market_cap)
+                market_cap_list.append(market_cap)
                 pe_denominator=company_df.loc[28].iat[10]
                 print("PE denominator:",pe_denominator)
+                pe_ratio=(market_cap/pe_denominator)
+                pe_ratio_list.append(pe_ratio)
+                j_30=company_df.loc[28].iat[9]
+                profit_growth=(pe_denominator - j_30)/j_30
+                profit_growth_list.append(profit_growth)
+
+            print("Market cap list:",market_cap_list)
+            print("PE ratio list:",pe_ratio_list)
+            print("Profit growth list:",profit_growth_list)
+        
         else:
             return {"data":"Invalid sector"}
 api.add_resource(Sector_rankings,'/sector_rankings')
