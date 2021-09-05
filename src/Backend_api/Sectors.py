@@ -353,10 +353,12 @@ class Sector_rankings(Resource):
         parser=reqparse.RequestParser()
         #Reading arguments from the url
         parser.add_argument('sector_name',required=True)
+        parser.add_argument('rank_name',required=True)
         #Creating argument dictionary
         args=parser.parse_args()
         #Fetching sector name
         sector=args['sector_name']
+        rank_type=args['rank_name']
         sector_list=list(os.listdir('D:\WP_project\src\csv_files'))
         if sector in sector_list:
             print("Sector name:",sector)
