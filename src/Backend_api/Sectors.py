@@ -441,6 +441,7 @@ class Sector_rankings(Resource):
                 t_item = target_list[i]
                 return_dict["Name"] = t_item[0]
                 return_dict["Value"] = t_item[1]
+                return_dict["Ranking"]=(i+1)
                 return_list.append(return_dict)
 
             # return {"Market Cap":sorted_market_cap_list,"PE Ratio":sorted_pe_ratio_list,"Profit growth":sorted_profit_growth_list}
