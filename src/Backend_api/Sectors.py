@@ -50,17 +50,17 @@ class Sector_company(Resource):
                 data_sheet_df = pd.read_excel(
                     string_path, sheet_name="Data Sheet")
 
-                if(document == "Profit Loss"):
+                if(document == "Profit_Loss"):
 
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     return_df = profit_loss_df
                     return_df = profit_loss_df
-                elif(document == "Balance Sheet"):
+                elif(document == "Balance_sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
-                    print("Balance sheet:")
+                    print("Balance_sheet:")
                     return_df = balance_sheet_df
                     return_df = balance_sheet_df
                 elif(document == "Cashflow"):
@@ -87,17 +87,17 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document == "Profit Loss"):
+                if(document == "Profit_Loss"):
 
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     return_df = profit_loss_df
                     return_df = profit_loss_df
-                elif(document == "Balance Sheet"):
+                elif(document == "Balance_sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
-                    print("Balance sheet:")
+                    print("Balance_sheet:")
                     return_df = balance_sheet_df
                     return_df = balance_sheet_df
                 elif(document == "Cashflow"):
@@ -122,17 +122,17 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document == "Profit Loss"):
+                if(document == "Profit_Loss"):
 
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     return_df = profit_loss_df
                     return_df = profit_loss_df
-                elif(document == "Balance Sheet"):
+                elif(document == "Balance_sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
-                    print("Balance sheet:")
+                    print("Balance_sheet:")
                     return_df = balance_sheet_df
                     return_df = balance_sheet_df
                 elif(document == "Cashflow"):
@@ -159,17 +159,17 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document == "Profit Loss"):
+                if(document == "Profit_Loss"):
 
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     return_df = profit_loss_df
                     return_df = profit_loss_df
-                elif(document == "Balance Sheet"):
+                elif(document == "Balance_sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
-                    print("Balance sheet:")
+                    print("Balance_sheet:")
                     return_df = balance_sheet_df
                     return_df = balance_sheet_df
                 elif(document == "Cashflow"):
@@ -195,18 +195,16 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document == "Profit Loss"):
+                if(document == "Profit_Loss"):
 
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     return_df = profit_loss_df
-                    return_df = profit_loss_df
-                elif(document == "Balance Sheet"):
+                elif(document == "Balance_sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
-                    print("Balance sheet:")
-                    return_df = balance_sheet_df
+                    print("Balance_sheet:")
                     return_df = balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
@@ -231,16 +229,16 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document == "Profit Loss"):
+                if(document == "Profit_Loss"):
 
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     return_df = profit_loss_df
-                elif(document == "Balance Sheet"):
+                elif(document == "Balance_sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
-                    print("Balance sheet:")
+                    print("Balance_sheet:")
                     return_df = balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
@@ -264,16 +262,16 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document == "Profit Loss"):
+                if(document == "Profit_Loss"):
 
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     return_df = profit_loss_df
-                elif(document == "Balance Sheet"):
+                elif(document == "Balance_sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
-                    print("Balance sheet:")
+                    print("Balance_sheet:")
                     return_df = balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
@@ -299,16 +297,16 @@ class Sector_company(Resource):
                     string_path, sheet_name="Data Sheet")
                 #print("Data Sheet df:")
                 # print(data_sheet_df)
-                if(document == "Profit Loss"):
+                if(document == "Profit_Loss"):
 
                     profit_loss_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=15, skipfooter=62)
                     print("Profit & Loss Sheet:")
                     return_df = profit_loss_df
-                elif(document == "Balance Sheet"):
+                elif(document == "Balance_sheet"):
                     balance_sheet_df = pd.read_excel(
                         string_path, sheet_name="Data Sheet", header=55, skipfooter=21)
-                    print("Balance sheet:")
+                    print("Balance_sheet:")
                     return_df = balance_sheet_df
                 elif(document == "Cashflow"):
                     cashflow_df = pd.read_excel(
@@ -330,16 +328,20 @@ class Sector_company(Resource):
         # rows=list(return_df.rows)
         no_rows = len(return_df.index)
         return_list = []
+        name_list=list(return_df['Report Date'])
+        print("Name list:",name_list)
         for i in range(0, no_rows):
             return_dict = {}
+            return_parent_dict={}
             for j in range(1, len(columns)):
                 # column_name=column[j]
                 #print("i:",i," j:",j)
                 # print(return_df.iloc[i][j])
                 date = columns[j].strftime("%m/%d/%y")
                 return_dict[date] = return_df.iloc[i][j]
+            return_parent_dict[name_list[i]]=return_dict
             print("Return_dict", (i+1), ":", return_dict)
-            return_list.append(return_dict)
+            return_list.append(return_parent_dict)
         return {"data": return_list}
 
 
@@ -352,6 +354,7 @@ api.add_resource(Sector_company, '/sectors')
 
 class Sector_rankings(Resource):
     def get(self):
+        print("Sector_rankings class running...")
         # Initialsing the parser
         parser = reqparse.RequestParser()
         # Reading arguments from the url
