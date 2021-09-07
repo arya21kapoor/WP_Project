@@ -10,7 +10,8 @@ app = Flask(__name__)
 api = Api(app)
 
 # Created Sector_company as an endpoint
-#This class will be returning data about each company in it's respective sector
+# This class will be returning data about each company in it's respective sector
+
 
 class Sector_company(Resource):
     def get(self):
@@ -341,83 +342,111 @@ class Sector_company(Resource):
             return_list.append(return_dict)
         return {"data": return_list}
 
+
         #print("Return list:",return_list)
         # Returning the csv_files_dictionary
         # return {'data':csv_list}
 # Added this class for the endpoint /sectors
 api.add_resource(Sector_company, '/sectors')
 
+
 class Sector_rankings(Resource):
     def get(self):
-        #Initialsing the parser
-        parser=reqparse.RequestParser()
-        #Reading arguments from the url
-        parser.add_argument('sector_name',required=True)
-        parser.add_argument('rank_name',required=True)
-        #Creating argument dictionary
-        args=parser.parse_args()
-        #Fetching sector name
-        sector=args['sector_name']
-        rank_type=args['rank_name']
-        sector_list=list(os.listdir('D:\WP_project\src\csv_files'))
+        # Initialsing the parser
+        parser = reqparse.RequestParser()
+        # Reading arguments from the url
+        parser.add_argument('sector_name', required=True)
+        parser.add_argument('rank_name', required=True)
+        # Creating argument dictionary
+        args = parser.parse_args()
+        # Fetching sector name
+        sector = args['sector_name']
+        rank_type = args['rank_name']
+        sector_list = list(os.listdir('D:\WP_project\src\csv_files'))
         if sector in sector_list:
-            print("Sector name:",sector)
-            path="D:\WP_project\src\csv_files\\"+sector
-            csv_list=list(os.listdir(path))
-            unsorted_market_cap_list=[]
-            unsorted_pe_ratio_list=[]
-            unsorted_profit_growth_list=[]
-            mc_list=[]
-            pe_list=[]
-            pg_list=[]
+            print("Sector name:", sector)
+            path = "D:\WP_project\src\csv_files\\"+sector
+            csv_list = list(os.listdir(path))
+            unsorted_market_cap_list = []
+            unsorted_pe_ratio_list = []
+            unsorted_profit_growth_list = []
+            mc_list = []
+            pe_list = []
+            pg_list = []
             for i in csv_list:
-                t_market_cap=[]
-                t_pe_ratio=[]
-                t_pg=[]
-                
-                company_path=path+"\\"+i
-                name=i.replace('.xlsx','')
+                t_market_cap = []
+                t_pe_ratio = []
+                t_pg = []
+
+                company_path = path+"\\"+i
+                name = i.replace('.xlsx', '')
                 t_market_cap.append(name)
                 t_pe_ratio.append(name)
                 t_pg.append(name)
-                company_df=pd.read_excel(company_path,sheet_name="Data Sheet")
+                company_df = pd.read_excel(
+                    company_path, sheet_name="Data Sheet")
                 #print("Company df:",company_df)
-                market_cap=company_df.loc[7].iat[1]
+                market_cap = company_df.loc[7].iat[1]
                 #print("Market cap:",market_cap)
                 t_market_cap.append(market_cap)
-                t_market_cap=tuple(t_market_cap)
+                t_market_cap = tuple(t_market_cap)
                 unsorted_market_cap_list.append(t_market_cap)
                 mc_list.append(market_cap)
-                pe_denominator=company_df.loc[28].iat[10]
+                pe_denominator = company_df.loc[28].iat[10]
                 #print("PE denominator:",pe_denominator)
-                pe_ratio=(market_cap/pe_denominator)
+                pe_ratio = (market_cap/pe_denominator)
                 t_pe_ratio.append(pe_ratio)
-                t_pe_ratio=tuple(t_pe_ratio)
+                t_pe_ratio = tuple(t_pe_ratio)
                 unsorted_pe_ratio_list.append(t_pe_ratio)
                 pe_list.append(pe_ratio)
-                j_30=company_df.loc[28].iat[9]
-                profit_growth=(pe_denominator - j_30)/j_30
+                j_30 = company_df.loc[28].iat[9]
+                profit_growth = (pe_denominator - j_30)/j_30
                 t_pg.append(profit_growth)
-                t_pg=tuple(t_pg)
+                t_pg = tuple(t_pg)
                 pg_list.append(profit_growth)
                 unsorted_profit_growth_list.append(t_pg)
 
-            print("\nMarket cap list:",unsorted_market_cap_list)
-            print("\nPE ratio list:",unsorted_pe_ratio_list)
-            print("\nProfit growth list:",unsorted_profit_growth_list)
-            mc_sorted=sorted(mc_list,reverse=True)
-            pe_sorted=sorted(pe_list,reverse=True)
-            pg_sorted=sorted(pg_list,reverse=True)
-            sorted_market_cap_list=[tuple for x in mc_sorted for tuple in unsorted_market_cap_list if tuple[1]==x]
-            print("\nSorted makret cap list: ",sorted_market_cap_list)
-            sorted_pe_ratio_list=[tuple for x in pe_sorted for tuple in unsorted_pe_ratio_list if tuple[1]==x]
-            print("\nSorted pe ratio list: ",sorted_pe_ratio_list)
-            sorted_profit_growth_list=[tuple for x in pg_sorted for tuple in unsorted_profit_growth_list if tuple[1]==x]
-            print("\nSorted profit growth list: ",sorted_profit_growth_list)
-            return {"Market Cap":sorted_market_cap_list,"PE Ratio":sorted_pe_ratio_list,"Profit growth":sorted_profit_growth_list}
+            print("\nMarket cap list:", unsorted_market_cap_list)
+            print("\nPE ratio list:", unsorted_pe_ratio_list)
+            print("\nProfit growth list:", unsorted_profit_growth_list)
+            mc_sorted = sorted(mc_list, reverse=True)
+            pe_sorted = sorted(pe_list, reverse=True)
+            pg_sorted = sorted(pg_list, reverse=True)
+            sorted_market_cap_list = [
+                tuple for x in mc_sorted for tuple in unsorted_market_cap_list if tuple[1] == x]
+            print("\nSorted makret cap list: ", sorted_market_cap_list)
+            sorted_pe_ratio_list = [
+                tuple for x in pe_sorted for tuple in unsorted_pe_ratio_list if tuple[1] == x]
+            print("\nSorted pe ratio list: ", sorted_pe_ratio_list)
+            sorted_profit_growth_list = [
+                tuple for x in pg_sorted for tuple in unsorted_profit_growth_list if tuple[1] == x]
+            print("\nSorted profit growth list: ", sorted_profit_growth_list)
+            target_list = []
+            if rank_type.lower() == "Market_cap".lower():
+                target_list = list(sorted_market_cap_list)
+            elif rank_type.lower() == "PE_ratio".lower():
+                target_list = list(sorted_pe_ratio_list)
+            elif rank_type.lower() == "Profit_growth".lower():
+                target_list = list(sorted_profit_growth_list)
+            else:
+                return {"Error": "Invalid rank type"}
+
+            return_list = []
+
+            for i in range(0, len(target_list)):
+                return_dict = {}
+                t_item = target_list[i]
+                return_dict["Name"] = t_item[0]
+                return_dict["Value"] = t_item[1]
+                return_list.append(return_dict)
+
+            # return {"Market Cap":sorted_market_cap_list,"PE Ratio":sorted_pe_ratio_list,"Profit growth":sorted_profit_growth_list}
+            return {"data": return_list}
         else:
-            return {"Error":"Invalid sector"}
-api.add_resource(Sector_rankings,'/sector_rankings')
+            return {"Error": "Invalid sector"}
+
+
+api.add_resource(Sector_rankings, '/sector_rankings')
 
 if __name__ == "__main__":
     app.run()
