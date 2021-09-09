@@ -493,7 +493,7 @@ class MCDA_rankings(Resource):
                     k27=df.loc[25].iat[10]
                     k26=df.loc[24].iat[10]
                     icr=(k28+k27+k26)/k26
-                    if pe<30:
+                    if pe<30 and pe>=0:
                         #print("Inside pe<30")
                         attribute_dict={}
                         attribute_dict['Company name']=company_name
