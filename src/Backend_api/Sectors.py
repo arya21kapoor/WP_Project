@@ -452,5 +452,67 @@ class Sector_rankings(Resource):
 
 api.add_resource(Sector_rankings, '/sector_rankings')
 
+class MCDA_rankings(Resource):
+    
+    def get(self):
+        print("MCDA_ranking class running..")
+
+        parser=reqparse.RequestParser()
+        parser.add_argument('Rank_type',required=True)
+
+        args=parser.parse_args()
+
+        rank_type=args['Rank_type']
+        print("Rank_type:",rank_type)
+        return_list=[]
+
+        sector_list=list(os.listdir('D:\WP_project\src\csv_files'))
+        sector_list.remove('Finance')
+        for i in sector_list:
+            sector_path='D:\WP_project\src\csv_files\\'+i
+            csv_list=list(os.listdir(sector_path))
+            for j in csv_list:
+                company_dict={}
+                company_name=j.replace('.xlsx','')
+                #print('Company_name:',company_name)
+                company_path=sector_path+'\\'+j
+                #print("Path:",company_path)
+                df=pd.read_excel(company_path,sheet_name='Data Sheet')
+                #print("Dataframe:",df)
+                if rank_type.lower()=='stat_cheap':
+                    #print("Inside if else")
+                    b9=df.loc[7].iat[1]
+                    k30=df.loc[28].iat[10]
+                    pe=b9/k30
+                    k57=df.loc[55].iat[10]
+                    k58=df.loc[56].iat[10]
+                    p_bv=b9/(k57+k58)
+                    k17=df.loc[15].iat[10]
+                    p_s=b9/k17
+                    k28=df.loc[26].iat[10]
+                    k27=df.loc[25].iat[10]
+                    k26=df.loc[24].iat[10]
+                    icr=(k28+k27+k26)/k26
+                    if pe<30:
+                        #print("Inside pe<30")
+                        attribute_dict={}
+                        attribute_dict['Company name']=company_name
+                        attribute_dict['PE_ratio']=pe
+                        attribute_dict['Price to book value']=p_bv
+                        attribute_dict['Price to sales']=p_s
+                        #company_dict[company_name]=attribute_dict
+                        return_list.append(attribute_dict)
+                else:
+                    return {"Error":"Invalid rank type"}  
+        mcda_df=pd.DataFrame(return_list)   
+        print("MCDA df:\n",mcda_df)  
+        return {'data':return_list}
+        
+
+api.add_resource(MCDA_rankings,'/mcda_rankings')
+
+
+        
+
 if __name__ == "__main__":
     app.run()
