@@ -1,8 +1,11 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
+from skcriteria.madm import simple
+from skcriteria import MAX,MIN,Data
 import pandas as pd
 import ast
 import os
+import json
 from datetime import datetime
 
 # Initialising the flask api
@@ -464,6 +467,7 @@ class MCDA_rankings(Resource):
 
         rank_type=args['Rank_type']
         print("Rank_type:",rank_type)
+        company_names=[]
         return_list=[]
 
         sector_list=list(os.listdir('D:\WP_project\src\csv_files'))
@@ -474,13 +478,9 @@ class MCDA_rankings(Resource):
             for j in csv_list:
                 company_dict={}
                 company_name=j.replace('.xlsx','')
-                #print('Company_name:',company_name)
                 company_path=sector_path+'\\'+j
-                #print("Path:",company_path)
                 df=pd.read_excel(company_path,sheet_name='Data Sheet')
-                #print("Dataframe:",df)
                 if rank_type.lower()=='stat_cheap':
-                    #print("Inside if else")
                     b9=df.loc[7].iat[1]
                     k30=df.loc[28].iat[10]
                     pe=b9/k30
@@ -493,22 +493,72 @@ class MCDA_rankings(Resource):
                     k27=df.loc[25].iat[10]
                     k26=df.loc[24].iat[10]
                     icr=(k28+k27+k26)/k26
+                    w=[0.4,0.4,0.2]
                     if pe<30 and pe>=0:
-                        #print("Inside pe<30")
                         attribute_dict={}
+                        company_names.append(company_name)
                         attribute_dict['Company name']=company_name
                         attribute_dict['PE_ratio']=pe
                         attribute_dict['Price to book value']=p_bv
                         attribute_dict['Price to sales']=p_s
-                        #company_dict[company_name]=attribute_dict
                         return_list.append(attribute_dict)
+                
                 else:
                     return {"Error":"Invalid rank type"}  
         mcda_df=pd.DataFrame(return_list)   
-        print("MCDA df:\n",mcda_df)  
-        return {'data':return_list}
+        print("MCDA df:\n",mcda_df)
+        mcda_df.drop('Company name',axis='columns',inplace=True)
         
 
+
+        data=Data(mcda_df,
+                  [MAX,MAX,MAX],
+                  weights=w,
+                  anames=company_names,
+                  cnames=['PE ratio','Price to Book value','Price to sales'])
+        print("Data:\n",data)
+        score_df=mcda_df.copy()
+
+        #Using weighted sum for ranking
+        #Using sum normalisation
+        dm=simple.WeightedSum(mnorm="sum")
+        dec=dm.decide(data)
+        score_df.loc[:,'Weighted_sum_points(sum)']=dec.e_.points
+        score_df.loc[:,'Weighted_sum_rank(sum)']=dec.rank_
+
+        #Using max normalisation
+        dm=simple.WeightedSum(mnorm="max")
+        dec=dm.decide(data)
+        score_df.loc[:,'Weighted_sum_point(max)']=dec.e_.points
+        score_df.loc[:,'Weight_sum_rank(max)']=dec.rank_
+
+        #Using weighted product
+        #Using sum normalisation
+        dm=simple.WeightedProduct(mnorm="sum")
+        dec=dm.decide(data)
+        score_df.loc[:,'Weighted_product_point(sum)']=dec.e_.points
+        score_df.loc[:,'Weighted_product_rank(sum)']=dec.rank_
+
+        #Using max normalisation
+        dm=simple.WeightedProduct(mnorm="max")
+        dec=dm.decide(data)
+        score_df.loc[:,'Weighted_product_point(max)']=dec.e_.points
+        score_df.loc[:,'Weighted_product_rank(max)']=dec.rank_
+
+        pd.set_option('display.max_rows',None,'display.max_columns',None)
+        row_count=score_df.shape[0]
+        column_names=list(score_df.columns)
+
+        return_list=[]
+        for i in range(0,row_count):
+            small_dict={}
+            small_dict["Name"]=company_names[i]
+            for j in range(0,len(column_names)) :
+                small_dict[column_names[j]]=score_df.loc[i].iat[j]
+            return_list.append(small_dict)
+            
+        return {"data":return_list}
+        
 api.add_resource(MCDA_rankings,'/mcda_rankings')
 
 
