@@ -469,7 +469,6 @@ class MCDA_rankings(Resource):
         print("Rank_type:",rank_type)
         company_names=[]
         return_list=[]
-
         sector_list=list(os.listdir('D:\WP_project\src\csv_files'))
         sector_list.remove('Finance')
         for i in sector_list:
@@ -494,6 +493,8 @@ class MCDA_rankings(Resource):
                     k26=df.loc[24].iat[10]
                     icr=(k28+k27+k26)/k26
                     w=[0.4,0.4,0.2]
+                    c=['PE ratio','Price to Book value','Price to sales']
+                    max_min_criteria=[MAX,MAX,MAX]
                     if pe<30 and pe>=0:
                         attribute_dict={}
                         company_names.append(company_name)
@@ -502,20 +503,97 @@ class MCDA_rankings(Resource):
                         attribute_dict['Price to book value']=p_bv
                         attribute_dict['Price to sales']=p_s
                         return_list.append(attribute_dict)
+
+                elif  rank_type=='high_growth':
+                    
+                    k17=df.loc[15].iat[10]
+                    f17=df.loc[15].iat[5]
+                    sg_five=((k17-f17)/f17)*100
+                    h17=df.loc[15].iat[7]
+                    sg_three=((k17-h17)/f17)*100
+                    k30=df.loc[28].iat[10]
+                    f30=df.loc[28].iat[5]
+                    pg_five=((k30-f30)/f30)*100
+                    h30=df.loc[28].iat[5]
+                    pg_three=((k30-h30)/h30)*100
+                    k28=df.loc[26].iat[10]
+                    k27=df.loc[25].iat[10]
+                    k26=df.loc[24].iat[10]
+                    icr=(k28+k27+k26)/k26
+                    max_min_criteria=[MAX,MAX,MAX,MAX]
+                    w=[0.3,0.2,0.3,0.2]
+                    c=['Sales growth after 5years','Sales growth after 3 years','Profit growth after 5 years','Profit growht after 3 years']
+                    if icr>4:
+                        attribute_dict={}
+                        company_names.append(company_name)
+                        attribute_dict['Company name']=company_name                        
+                        attribute_dict['Sales growth after 5years']=sg_five
+                        attribute_dict['Sales growth after 3 years']=sg_three
+                        attribute_dict['Profit growth after 5 years']=pg_five
+                        attribute_dict['Profit growht after 3 years']=pg_three
+                        return_list.append(attribute_dict)
+
+                elif rank_type=="debt_reduction":
+                    k57=df.loc[55].iat[10]
+                    k58=df.loc[56].iat[10]
+                    k59=df.loc[57].iat[10]
+                    k60=df.loc[58].iat[10]
+                    de=((k59+k60)/(k57+k58))
+                    k28=df.loc[26].iat[10]
+                    k27=df.loc[25].iat[10]
+                    k26=df.loc[24].iat[10]
+                    icr=(k28+k27+k26)/k26
+                    h59=df.loc[57].iat[7]
+                    h60=df.loc[58].iat[7]
+                    dr_three=(k59 + k60) - (h59 + h60)
+                    f59=df.loc[57].iat[5]
+                    f60=df.loc[58].iat[5]
+                    f57=df.loc[55].iat[5]
+                    f58=df.loc[56].iat[5]
+                    dr_five=(k59 + k60) - (f59 + f60)
+                    debt_to_er_five=((f59 + f60)/(f57 + f58)) - ((k59 + k60)/(k57 + k58))
+                    max_min_criteria=[MAX,MAX,MAX]
+                    w=[0.3,0.4,0.3]
+                    c=['Debt Reduction 3 years','Debt Reduction 5 years','Debt to Equity Reduction 5 years']
+                    if icr>4 and 0<=de<1.1 and company_name!='Infosys':
+                        attribute_dict={}
+                        company_names.append(company_name)
+                        attribute_dict['Company name']=company_name
+                        attribute_dict['Debt Reduction 3 years']=dr_three
+                        attribute_dict['Debt Reduction 5 years']=dr_five
+                        attribute_dict['Debt to Equity Reduction 5 years']=debt_to_er_five
+                        return_list.append(attribute_dict)
                 
+                elif rank_type=="magic_formula":
+                    k30=df.loc[28].iat[10]
+                    j30=df.loc[28].iat[9]
+                    i30=df.loc[28].iat[8]
+                    k58=df.loc[56].iat[10]
+                    j58=df.loc[56].iat[9]
+                    i58=df.loc[56].iat[8]
+                    roe_three=((k30 + j30 + i30)/(k58 + j58 + i58)) * 100
+                    k28=df.loc[26].iat[10]
+                    k27=df.loc[25].iat[10]
+                    k26=df.loc[24].iat[10]
+                    icr=(k28+k27+k26)/k26
+                    w=[0.5,0.5]
+                    max_min_criteria=[MAX,MAX]
+                    c=['Return on Equity 3 years','Earning Yield']
+
+
                 else:
                     return {"Error":"Invalid rank type"}  
         mcda_df=pd.DataFrame(return_list)   
         print("MCDA df:\n",mcda_df)
         mcda_df.drop('Company name',axis='columns',inplace=True)
-        
-
+        print("Weight:",w)
+        print("Max min criteria:",max_min_criteria)
 
         data=Data(mcda_df,
-                  [MAX,MAX,MAX],
+                  max_min_criteria,
                   weights=w,
                   anames=company_names,
-                  cnames=['PE ratio','Price to Book value','Price to sales'])
+                  cnames=c)
         print("Data:\n",data)
         score_df=mcda_df.copy()
 
@@ -548,6 +626,7 @@ class MCDA_rankings(Resource):
         pd.set_option('display.max_rows',None,'display.max_columns',None)
         row_count=score_df.shape[0]
         column_names=list(score_df.columns)
+        print("Score df:",score_df)
 
         return_list=[]
         for i in range(0,row_count):
