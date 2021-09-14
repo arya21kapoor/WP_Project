@@ -645,20 +645,16 @@ class MCDA_rankings(Resource):
         score_df.loc[:, 'Weighted_product_rank(max)'] = dec.rank_
 
         pd.set_option('display.max_rows', None, 'display.max_columns', None)
-        row_count = score_df.shape[0]
-        column_names = list(score_df.columns)
-        print("Score df:", score_df)
+        score_df.insert(0, "Name", company_names)
+        score_df = score_df.sort_values(by="Weighted_sum_rank(sum)")
+        score_df = score_df.head(10)
+        print("Score df:\n", score_df)
 
-        # Making the list of dictionaries for the front end
+        # Making the return_dict for the front end
         return_list = []
-        for i in range(0, row_count):
-            small_dict = {}
-            small_dict["Name"] = company_names[i]
-            for j in range(0, len(column_names)):
-                small_dict[column_names[j]] = score_df.loc[i].iat[j]
-            return_list.append(small_dict)
+        return_dict = score_df.to_dict("records")
 
-        return {"data": return_list}
+        return {"data": return_dict}
 
 
 api.add_resource(MCDA_rankings, '/mcda_rankings')
