@@ -502,7 +502,7 @@ class MCDA_rankings(Resource):
                     w = [0.4, 0.4, 0.2]
                     # Assigning column names
                     c = ['PE ratio', 'Price to Book value', 'Price to sales']
-                    max_min_criteria = [MAX, MAX, MAX]
+                    max_min_criteria = [MIN, MIN, MIN]
                     # Necessary condition
                     if pe < 30 and pe >= 0:
                         # This dictionary contains the attribute
@@ -597,7 +597,7 @@ class MCDA_rankings(Resource):
                     w = [0.5, 0.5]
                     max_min_criteria = [MAX, MAX]
                     c = ['Return on Equity 3 years', 'Earning Yield']
-                    if icr > 4:
+                    if icr > 4 and company_name not in ['B P C L','Coal India','I O C L','NTPC','O N G C','Power Grid Corpn']:
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
