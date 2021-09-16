@@ -625,25 +625,6 @@ class MCDA_rankings(Resource):
         score_df.loc[:, 'Weighted_sum_points(sum)'] = dec.e_.points
         score_df.loc[:, 'Weighted_sum_rank(sum)'] = dec.rank_
 
-        # Using max normalisation
-        dm = simple.WeightedSum(mnorm="max")
-        dec = dm.decide(data)
-        score_df.loc[:, 'Weighted_sum_point(max)'] = dec.e_.points
-        score_df.loc[:, 'Weight_sum_rank(max)'] = dec.rank_
-
-        # Using weighted product
-        # Using sum normalisation
-        dm = simple.WeightedProduct(mnorm="sum")
-        dec = dm.decide(data)
-        score_df.loc[:, 'Weighted_product_point(sum)'] = dec.e_.points
-        score_df.loc[:, 'Weighted_product_rank(sum)'] = dec.rank_
-
-        # Using max normalisation
-        dm = simple.WeightedProduct(mnorm="max")
-        dec = dm.decide(data)
-        score_df.loc[:, 'Weighted_product_point(max)'] = dec.e_.points
-        score_df.loc[:, 'Weighted_product_rank(max)'] = dec.rank_
-
         pd.set_option('display.max_rows', None, 'display.max_columns', None)
         score_df.insert(0, "Name", company_names)
         score_df = score_df.sort_values(by="Weighted_sum_rank(sum)")
