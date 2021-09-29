@@ -3,8 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FMCG</title>
+    <title>SectorName</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
   </head>
 
   <body style="padding-top: 65px; margin:0px 15px 0px 10px;">
@@ -56,51 +63,60 @@
       </div>
     </nav>
 <div class="table-responsive my-2" id="table-balance_sheet">
-      <p class="h3 mb-3">FMCG</p>
-      <table class="table table-bordered table-info table-striped table-hover">
-        <thead class="table-dark">
+      <p class="h3 mb-3">SectorName</p>
+      <table class="table table-bordered table-info table-striped table-hover" id="sortTable">
+        <thead>
           <tr>
             <th scope="col">Stock</th>
             <th scope="col">Market Capitalization</th>
-            <th scope="col">Return on Equity(%)</th>
+            <th scope="col">PE Ratio</th>
             <th scope="col">Profit Growth(%)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">Britannia Inds</th>
-            <td>dummy</td>
-            <td>dummy</td>
-            <td>dummy</td>
+            <th scope="row">A</th>
+            <td>100000</td>
+            <td>25</td>
+            <td>15</td>
           </tr>
           <tr>
-            <th scope="row">Hind. Unilever</th>
-            <td>dummy</td>
-            <td>dummy</td>
-            <td>dummy</td>
+            <th scope="row">B</th>
+            <td>65000</td>
+            <td>22</td>
+            <td>18</td>
           </tr>
           <tr>
-            <th scope="row">ITC</th>
-            <td>dummy</td>
-            <td>dummy</td>
-            <td>dummy</td>
+            <th scope="row">C</th>
+            <td>70000</td>
+            <td>26</td>
+            <td>5</td>
           </tr>
           <tr>
-            <th scope="row">Nestle India</th>
-            <td>dummy</td>
-            <td>dummy</td>
-            <td>dummy</td>
+            <th scope="row">D</th>
+            <td>80000</td>
+            <td>-3</td>
+            <td>-8</td>
           </tr>
           <tr>
-            <th scope="row">Tata Consumer</th>
-            <td>dummy</td>
-            <td>dummy</td>
-            <td>dummy</td>
+            <th scope="row">E</th>
+            <td>140000</td>
+            <td>14</td>
+            <td>8</td>
+          </tr>
+          <tr>
+            <th scope="row">F</th>
+            <td>180000</td>
+            <td>10</td>
+            <td>7</td>
           </tr>
         </tbody>
       </table>
     </div>
     </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+      <script>
+        $('#sortTable').DataTable();
+      </script>
+          
   </body>
 </html>
