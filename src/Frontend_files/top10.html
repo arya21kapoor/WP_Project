@@ -58,10 +58,12 @@
       </div>
     </nav>
 <div class="table-responsive my-2" >
-      <button type="button" class="btn btn-primary">Value stocks</button>
+    
+      <button type="button" class="btn btn-primary"><a href="{{url_for('getMCDA',Rank_type="stat_cheap")}}">Value stocks</a></button>
       <button type="button" class="btn btn-primary">Growth stocks</button>
       <button type="button" class="btn btn-primary">Debt reduction stocks</button>
       <button type="button" class="btn btn-primary">Magic formula stocks</button><br><br>
+
       <h1 class="display-6">Top 10 [Enter ranking type] stocks</h1><br>
       <table class="table table-bordered table-info table-striped">
         <thead>

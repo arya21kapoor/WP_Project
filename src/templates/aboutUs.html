@@ -64,26 +64,15 @@
                         <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Top 10
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown"
-                           >
-                           <li><a class="dropdown-item" href="#">Value Stocks</a></li>
-                           <li>
-                              <hr class="dropdown-divider" />
-                           </li>
-                           <li><a class="dropdown-item" href="#">Growth Stocks</a></li>
-                           <li>
-                              <hr class="dropdown-divider" />
-                           </li>
-                           <li>
-                              <a class="dropdown-item" href="#">Debt Reduction Stocks</a>
-                           </li>
-                           <li>
-                              <hr class="dropdown-divider" />
-                           </li>
-                           <li>
-                              <a class="dropdown-item" href="#">Magic Formula Stocks</a>
-                           </li>
-                        </ul>
+                        <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+                           <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='stat_cheap')}}">Value Stocks</a></li>
+                           <li><hr class="dropdown-divider"></li>
+                           <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='high_growth')}}">Growth Stocks</a></li>
+                           <li><hr class="dropdown-divider"></li>
+                           <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='debt_reduction')}}">Debt Reduction Stocks</a></li>
+                           <li><hr class="dropdown-divider"></li>
+                           <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='magic_formula')}}">Magic Formula Stocks</a></li>
+                         </ul>
                      </li>
                   </ul>
                   <form class="d-flex">

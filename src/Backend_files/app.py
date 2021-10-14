@@ -202,9 +202,9 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['PE_ratio'] = pe
-                        attribute_dict['Price to book value'] = p_bv
-                        attribute_dict['Price to sales'] = p_s
+                        attribute_dict['PE Ratio'] = pe
+                        attribute_dict['Price to Book Value'] = p_bv
+                        attribute_dict['Price to Sales'] = p_s
                         # This is the return list in which we append the dictionary
                         return_list.append(attribute_dict)
 
@@ -233,9 +233,9 @@ class MCDA_rankings(Resource):
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
                         attribute_dict['Sales growth after 5years'] = sg_five
-                        attribute_dict['Sales growth after 3 years'] = sg_three
-                        attribute_dict['Profit growth after 5 years'] = pg_five
-                        attribute_dict['Profit growht after 3 years'] = pg_three
+                        attribute_dict['Sales growth after 3years'] = sg_three
+                        attribute_dict['Profit growth after 5years'] = pg_five
+                        attribute_dict['Profit growth after 3years'] = pg_three
                         return_list.append(attribute_dict)
 
                 elif rank_type.lower() == "debt_reduction":
@@ -315,20 +315,22 @@ class MCDA_rankings(Resource):
         # Using sum normalisation
         dm = simple.WeightedSum(mnorm="sum")
         dec = dm.decide(data)
-        score_df.loc[:, 'Weighted_sum_points(sum)'] = dec.e_.points
-        score_df.loc[:, 'Weighted_sum_rank(sum)'] = dec.rank_
+        score_df.loc[:, 'Algorithm points'] = dec.e_.points
+        score_df.loc[:, 'Ranks'] = dec.rank_
 
         pd.set_option('display.max_rows', None, 'display.max_columns', None)
         score_df.insert(0, "Name", company_names)
-        score_df = score_df.sort_values(by="Weighted_sum_rank(sum)")
+        score_df = score_df.sort_values(by="Ranks")
         score_df = score_df.head(10)
         print("Score df:\n", score_df)
 
         # Making the return_dict for the front end
         return_list = []
         return_dict = score_df.to_dict("records")
+        headers = list(return_dict[0].keys())
 
-        return {"data": return_dict}
+
+        return {"headers":headers,"data": return_dict}
 
 
 api.add_resource(MCDA_rankings, '/mcda_rankings')

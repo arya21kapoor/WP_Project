@@ -50,13 +50,14 @@ def getStockName(SectorName, CompanyName):
 
     return render_template("try_stock.html", sector_name = SectorName, company_name = CompanyName, content=json_data)
 
-@app.route("/mcda_rankings/Rank_type=<Rt>")
-def getMCDA(Rt):
-    con=req.get(f"http://127.0.0.1:5000/mcda_rankings?Rank_type={Rt}")
-    json_data=con.json()['data']
+@app.route("/mcda_rankings/Rank_type=<Rank_type>")
+def getMCDA(Rank_type):
+    con=req.get(f"http://127.0.0.1:5000/mcda_rankings?Rank_type={Rank_type}")
+    json_data=con.json()
     print("JSON_Data returned:",json_data)
     print("Length:",len(json_data))
-    return {"data":True}
+    #return {"data":True}
+    return render_template("top10.html",rank_type=Rank_type,content=json_data)
 if __name__ == '__main__':
     app.debug=True
     app.run(port=8000)
