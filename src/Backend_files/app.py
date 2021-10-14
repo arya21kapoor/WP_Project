@@ -3,6 +3,7 @@ from flask_restful import Resource, Api, reqparse
 from skcriteria.madm import simple
 from skcriteria import MAX, MIN, Data
 import json
+import math
 import os
 import pandas as pd
 
@@ -202,9 +203,9 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['PE Ratio'] = pe
-                        attribute_dict['Price to Book Value'] = p_bv
-                        attribute_dict['Price to Sales'] = p_s
+                        attribute_dict['PE Ratio'] = '%.3f'%(pe)
+                        attribute_dict['Price to Book Value'] = '%.3f'%(p_bv)
+                        attribute_dict['Price to Sales'] = '%.3f'%(p_s)
                         # This is the return list in which we append the dictionary
                         return_list.append(attribute_dict)
 
@@ -232,10 +233,10 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Sales growth after 5years'] = sg_five
-                        attribute_dict['Sales growth after 3years'] = sg_three
-                        attribute_dict['Profit growth after 5years'] = pg_five
-                        attribute_dict['Profit growth after 3years'] = pg_three
+                        attribute_dict['Sales growth after 5years'] = '%.3f'%(sg_five)
+                        attribute_dict['Sales growth after 3years'] = '%.3f'%(sg_three)
+                        attribute_dict['Profit growth after 5years'] = '%.3f'%(pg_five)
+                        attribute_dict['Profit growth after 3years'] = '%.3f'%(pg_three)
                         return_list.append(attribute_dict)
 
                 elif rank_type.lower() == "debt_reduction":
@@ -266,9 +267,9 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Debt Reduction 3 years'] = dr_three
-                        attribute_dict['Debt Reduction 5 years'] = dr_five
-                        attribute_dict['Debt to Equity Reduction 5 years'] = debt_to_er_five
+                        attribute_dict['Debt Reduction 3 years'] = '%.3f'%(dr_three)
+                        attribute_dict['Debt Reduction 5 years'] = '%.3f'%(dr_five)
+                        attribute_dict['Debt to Equity Reduction 5 years'] = '%.3f'%(debt_to_er_five)
                         return_list.append(attribute_dict)
 
                 elif rank_type.lower() == "magic_formula":
@@ -294,8 +295,8 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Return on Equity 3 years'] = roe_three
-                        attribute_dict['Earning Yield'] = earning_yield
+                        attribute_dict['Return on Equity 3 years'] = '%.3f'%(roe_three)
+                        attribute_dict['Earning Yield'] = '%.3f'%(earning_yield)
                         return_list.append(attribute_dict)
 
                 else:
@@ -315,12 +316,13 @@ class MCDA_rankings(Resource):
         # Using sum normalisation
         dm = simple.WeightedSum(mnorm="sum")
         dec = dm.decide(data)
-        score_df.loc[:, 'Algorithm points'] = dec.e_.points
-        score_df.loc[:, 'Ranks'] = dec.rank_
+        #score_df.loc[:, 'Algorithm points'] = map(lambda x:'%.3f'%(x),list(dec.e_.points))
+        score_df.loc[:, 'Algorithm points'] = ['%.3f'%(x) for x in list(dec.e_.points)]
+        score_df.loc[:, 'Rank'] = dec.rank_
 
         pd.set_option('display.max_rows', None, 'display.max_columns', None)
         score_df.insert(0, "Name", company_names)
-        score_df = score_df.sort_values(by="Ranks")
+        score_df = score_df.sort_values(by="Rank")
         score_df = score_df.head(10)
         print("Score df:\n", score_df)
 
