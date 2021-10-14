@@ -142,7 +142,6 @@ class SectorDetails(Resource):
                 'Profit Growth (%)' : profit_growth
             })
 
-        # myList.sort(key = lambda x: x['Market Cap.'], reverse = True)
         headers = list(myList[0].keys())
 
         os.chdir(current_directory)
@@ -164,12 +163,18 @@ class MCDA_rankings(Resource):
         print("Rank_type:", rank_type)
         company_names = []
         return_list = []
-        # Removing financial sector
-        sector_list = list(os.listdir('D:\WP_project\src\csv_files'))
+        
+        #Getting the orignal path
+        orignal_path=os.getcwd()
+        #Adding the '\csv files\' to go into this directory
+        csv_path=orignal_path + '\\csv_files'
+        sector_list = list(os.listdir(csv_path))
+        # Removing financial sector and icons.json
         sector_list.remove('Finance')
+        sector_list.remove('icons.json')
         # This segment takes care of making a dataframe for MCDA data object
         for i in sector_list:
-            sector_path = 'D:\WP_project\src\csv_files\\'+i
+            sector_path = csv_path+'\\'+i
             csv_list = list(os.listdir(sector_path))
             for j in csv_list:
                 company_dict = {}
@@ -324,7 +329,7 @@ class MCDA_rankings(Resource):
         score_df.insert(0, "Name", company_names)
         score_df = score_df.sort_values(by="Rank")
         score_df = score_df.head(10)
-        print("Score df:\n", score_df)
+        #print("Score df:\n", score_df)
 
         # Making the return_dict for the front end
         return_list = []

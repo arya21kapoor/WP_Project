@@ -54,9 +54,6 @@ def getStockName(SectorName, CompanyName):
 def getMCDA(Rank_type):
     con=req.get(f"http://127.0.0.1:5000/mcda_rankings?Rank_type={Rank_type}")
     json_data=con.json()
-    print("JSON_Data returned:",json_data)
-    print("Length:",len(json_data))
-    #return {"data":True}
     return render_template("top10.html",rank_type=Rank_type,content=json_data)
 if __name__ == '__main__':
     app.debug=True
