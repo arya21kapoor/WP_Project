@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>Home Page</title>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/back_to_top.css') }}" />
       <style media="screen">
-        i{
-          color: red;
-        }
+         i {
+         color: red;
+         }
       </style>
    </head>
-   <body style="padding-top: 65px; margin:0px 15px 0px 10px;">
-      <nav class="navbar navbar-light navbar-expand-md bg-light fixed-top">
+   <body style="padding-top: 65px; margin: 0px 15px 0px 10px;">
+      <nav class="navbar navbar-dark navbar-expand-md bg-dark fixed-top">
          <div class="container-fluid">
-            <a class="navbar-brand" href="">Custom Stocky</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-            <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand" href="#">Custom Stocky</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"><span class="navbar-toggler-icon"></span></button>
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                <div class="offcanvas-header">
                   <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Custom Stocky</h5>
@@ -26,30 +25,11 @@
                </div>
                <div class="offcanvas-body">
                   <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                     </li>
-                     <li class="nav-item">
-                       <a class="nav-link" href="{{url_for('getPage', page="aboutUs.html")}}">About Us</a>
-                     </li>
-                     <li class="nav-item">
-                       <a class="nav-link" href="{{url_for('getPage', page="contactUs.html")}}">Contact Us</a>
-                     </li>
-                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Top 10
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                           <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='stat_cheap')}}">Value Stocks</a></li>
-                           <li><hr class="dropdown-divider"></li>
-                           <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='high_growth')}}">Growth Stocks</a></li>
-                           <li><hr class="dropdown-divider"></li>
-                           <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='debt_reduction')}}">Debt Reduction Stocks</a></li>
-                           <li><hr class="dropdown-divider"></li>
-                           <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='magic_formula')}}">Magic Formula Stocks</a></li>
-                         </ul>
+                     <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{url_for('getPage', page='aboutUs.html')}}">About Us</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{url_for('getPage', page='contactUs.html')}}">Contact Us</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{url_for('getMCDA',Rank_type='stat_cheap')}}">Top 10 Stocks</a></li>
                   </ul>
-                  
                </div>
             </div>
          </div>
@@ -66,16 +46,18 @@
             <div id="flush-collapse{{loop.index}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{loop.index}}" data-bs-parent="#accordionFlushSector">
                <div class="accordion-body">
                   <a type="button" class="btn btn-primary me-2 mb-2" href="/sector={{sector}}">All Sheet - {{sector}}</a>
-                  <div class="list-group">
-                     {% for company in sector_dict['companies'] %}
-                     <a href="/sector={{sector}}/company={{company}}" class="list-group-item list-group-item-action">{{company}}</a>
-                     {% endfor %}
-                  </div>
+                  <div class="list-group">{% for company in sector_dict['companies'] %} <a href="/sector={{sector}}/company={{company}}" class="list-group-item list-group-item-action">{{company}}</a> {% endfor %}</div>
                </div>
             </div>
          </div>
          {% endfor %}
       </div>
+      <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-arrow-up" viewBox="0 0 16 20 ">
+            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+         </svg>
+      </button>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+      <script src="{{url_for('static', filename='js_files/back_to_top.js')}}"></script>
    </body>
 </html>

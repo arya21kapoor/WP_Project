@@ -3,7 +3,6 @@ from flask_restful import Resource, Api, reqparse
 from skcriteria.madm import simple
 from skcriteria import MAX, MIN, Data
 import json
-import math
 import os
 import pandas as pd
 
@@ -163,7 +162,7 @@ class MCDA_rankings(Resource):
         print("Rank_type:", rank_type)
         company_names = []
         return_list = []
-        
+
         #Getting the orignal path
         orignal_path=os.getcwd()
         #Adding the '\csv files\' to go into this directory

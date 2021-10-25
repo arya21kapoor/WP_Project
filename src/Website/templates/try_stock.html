@@ -1,146 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Try Stock</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <style media="screen">
-      #btn-back-to-top {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        display: none;
-      }
-
-      .table tr:nth-child(even) td {
-        background-color: lightyellow;
-      }
-
-      .table tr:nth-child(even) th {
-        background-color: lightyellow;
-      }
-    </style>
-  </head>
-  <!-- <body style="padding-top: 65px; margin:0px 15px 0px 10px;">
-    <nav class="navbar navbar-light navbar-expand-md bg-light fixed-top"> -->
-  <body>
-    <nav class="navbar navbar-light navbar-expand-md bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{{url_for('getPage', page="home.html")}}">Custom Stocky</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Custom Stocky</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('getPage', page="home.html")}}">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('getPage', page="aboutUs.html")}}">About Us</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="{{url_for('getPage', page="contactUs.html")}}">Contact Us</a>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="top10.html" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Top 10
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                  <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='stat_cheap')}}">Value Stocks</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='high_growth')}}">Growth Stocks</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='debt_reduction')}}">Debt Reduction Stocks</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{{url_for('getMCDA',Rank_type='magic_formula')}}">Magic Formula Stocks</a></li>
-                </ul>
-              </li>
-            </ul>
-            
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <section style="margin:0px 15px 0px 10px;">
-      <p class="h2 mb-3">Company Name: <span class="h1">{{company_name}}</span></p>
-      <p class="h3 mb-3">Sector Name: <span class="h2">{{sector_name}}</span></p>
-
-      <div class="mb-3">
-        {% for category in content.keys() %}
-          <a type="button" class="btn btn-primary me-2 mb-2" href="#table-{{'_'.join(category.split())}}">{{category}}</a>
-        {% endfor %}
-      </div>
-
-      {% for myCategory, myDict in content.items() %}
-      <div class="table-responsive my-3" id="table-{{'_'.join(myCategory.split())}}">
-        <p class="h3 mb-3">{{myCategory}}</p>
-        <table class="table table-bordered table-primary">
-          <thead>
-            <tr>
-              {% for header in myDict["headers"] %}
-                <th scope="col">{{header}}</th>
-              {% endfor %}
-            </tr>
-            <tbody>
-              {% for row_name, myRow in myDict["values"].items() %}
-                <tr>
-                  <th scope="row">{{row_name}}</th>
-                  {% for cell in myRow.values() %}
-                    <td>{{cell}}</td>
+   <head>
+      <meta charset="utf-8" />
+      <title>Try Stock</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/back_to_top.css') }}" />
+      <style media="screen">
+         .table tr:nth-child(even) td {
+         background-color: lightyellow;
+         }
+         .table tr:nth-child(even) th {
+         background-color: lightyellow;
+         }
+      </style>
+   </head>
+   <!-- <body style="padding-top: 65px; margin:0px 15px 0px 10px;">
+      <nav class="navbar navbar-light navbar-expand-md bg-light fixed-top"> -->
+   <body>
+      <nav class="navbar navbar-dark navbar-expand-md bg-dark">
+         <div class="container-fluid">
+            <a class="navbar-brand" href="{{url_for('getPage', page='home.html')}}">Custom Stocky</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"><span class="navbar-toggler-icon"></span></button>
+            <div class="offcanvas offcanvas-start navbar-dark bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+               <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Custom Stocky</h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+               </div>
+               <div class="offcanvas-body">
+                  <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                     <li class="nav-item"><a class="nav-link" href="{{url_for('getPage', page='home.html')}}">Home</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{url_for('getPage', page='aboutUs.html')}}">About Us</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{url_for('getPage', page='contactUs.html')}}">Contact Us</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{url_for('getMCDA',Rank_type='stat_cheap')}}">Top 10 Stocks</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </nav>
+      <section style="margin: 0px 15px 0px 10px;">
+         <p class="h2 mb-3">Company Name: <span class="h1">{{company_name}}</span></p>
+         <p class="h3 mb-3">Sector Name: <span class="h2">{{sector_name}}</span></p>
+         <div class="mb-3">{% for category in content.keys() %} <a type="button" class="btn btn-primary me-2 mb-2" href="#table-{{'_'.join(category.split())}}">{{category}}</a> {% endfor %}</div>
+         {% for myCategory, myDict in content.items() %}
+         <div class="table-responsive my-3" id="table-{{'_'.join(myCategory.split())}}">
+            <p class="h3 mb-3">{{myCategory}}</p>
+            <table class="table table-bordered table-primary">
+               <thead>
+                  <tr>
+                     {% for header in myDict["headers"] %}
+                     <th scope="col">{{header}}</th>
+                     {% endfor %}
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for row_name, myRow in myDict["values"].items() %}
+                  <tr>
+                     <th scope="row">{{row_name}}</th>
+                     {% for cell in myRow.values() %}
+                     <td>{{cell}}</td>
+                     {% endfor %}
+                  </tr>
                   {% endfor %}
-                </tr>
-              {% endfor %}
-            </tbody>
-          </thead>
-        </table>
-      </div>
-      {% endfor %}
-    </section>
-
-    <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-arrow-up" viewBox="0 0 16 20 ">
-        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
-      </svg>
-    </button>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-      let mybutton = document.getElementById("btn-back-to-top");
-      console.log('Atleast entering the file')
-
-      // When the user scrolls down 20px from the top of the document, show the button
-      window.onscroll = function () {
-        scrollFunction();
-      };
-
-      function scrollFunction() {
-        if (
-          document.body.scrollTop > 20 ||
-          document.documentElement.scrollTop > 20
-        ) {
-          mybutton.style.display = "block";
-        } else {
-          mybutton.style.display = "none";
-        }
-      }
-
-      mybutton.addEventListener("click", backToTop); // When the user clicks on the button, scroll to the top of the document
-
-      function backToTop() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-      }
-    </script>
-
-  </body>
+               </tbody>
+            </table>
+         </div>
+         {% endfor %}
+      </section>
+      <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-arrow-up" viewBox="0 0 16 20 ">
+            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+         </svg>
+      </button>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+      <script src="{{url_for('static', filename='js_files/back_to_top.js')}}"></script>
+   </body>
 </html>
