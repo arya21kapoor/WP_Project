@@ -141,7 +141,6 @@ class SectorDetails(Resource):
                 'Profit Growth (%)' : profit_growth
             })
 
-        # myList.sort(key = lambda x: x['Market Cap.'], reverse = True)
         headers = list(myList[0].keys())
 
         os.chdir(current_directory)
@@ -163,12 +162,18 @@ class MCDA_rankings(Resource):
         print("Rank_type:", rank_type)
         company_names = []
         return_list = []
-        # Removing financial sector
-        sector_list = list(os.listdir('D:\WP_project\src\csv_files'))
+
+        #Getting the orignal path
+        orignal_path=os.getcwd()
+        #Adding the '\csv files\' to go into this directory
+        csv_path=orignal_path + '\\csv_files'
+        sector_list = list(os.listdir(csv_path))
+        # Removing financial sector and icons.json
         sector_list.remove('Finance')
+        sector_list.remove('icons.json')
         # This segment takes care of making a dataframe for MCDA data object
         for i in sector_list:
-            sector_path = 'D:\WP_project\src\csv_files\\'+i
+            sector_path = csv_path+'\\'+i
             csv_list = list(os.listdir(sector_path))
             for j in csv_list:
                 company_dict = {}
@@ -202,9 +207,9 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['PE_ratio'] = pe
-                        attribute_dict['Price to book value'] = p_bv
-                        attribute_dict['Price to sales'] = p_s
+                        attribute_dict['PE Ratio'] = '%.3f'%(pe)
+                        attribute_dict['Price to Book Value'] = '%.3f'%(p_bv)
+                        attribute_dict['Price to Sales'] = '%.3f'%(p_s)
                         # This is the return list in which we append the dictionary
                         return_list.append(attribute_dict)
 
@@ -232,10 +237,10 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Sales growth after 5years'] = sg_five
-                        attribute_dict['Sales growth after 3 years'] = sg_three
-                        attribute_dict['Profit growth after 5 years'] = pg_five
-                        attribute_dict['Profit growht after 3 years'] = pg_three
+                        attribute_dict['Sales growth after 5years'] = '%.3f'%(sg_five)
+                        attribute_dict['Sales growth after 3years'] = '%.3f'%(sg_three)
+                        attribute_dict['Profit growth after 5years'] = '%.3f'%(pg_five)
+                        attribute_dict['Profit growth after 3years'] = '%.3f'%(pg_three)
                         return_list.append(attribute_dict)
 
                 elif rank_type.lower() == "debt_reduction":
@@ -266,9 +271,9 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Debt Reduction 3 years'] = dr_three
-                        attribute_dict['Debt Reduction 5 years'] = dr_five
-                        attribute_dict['Debt to Equity Reduction 5 years'] = debt_to_er_five
+                        attribute_dict['Debt Reduction 3 years'] = '%.3f'%(dr_three)
+                        attribute_dict['Debt Reduction 5 years'] = '%.3f'%(dr_five)
+                        attribute_dict['Debt to Equity Reduction 5 years'] = '%.3f'%(debt_to_er_five)
                         return_list.append(attribute_dict)
 
                 elif rank_type.lower() == "magic_formula":
@@ -294,8 +299,8 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Return on Equity 3 years'] = roe_three
-                        attribute_dict['Earning Yield'] = earning_yield
+                        attribute_dict['Return on Equity 3 years'] = '%.3f'%(roe_three)
+                        attribute_dict['Earning Yield'] = '%.3f'%(earning_yield)
                         return_list.append(attribute_dict)
 
                 else:
@@ -315,20 +320,23 @@ class MCDA_rankings(Resource):
         # Using sum normalisation
         dm = simple.WeightedSum(mnorm="sum")
         dec = dm.decide(data)
-        score_df.loc[:, 'Weighted_sum_points(sum)'] = dec.e_.points
-        score_df.loc[:, 'Weighted_sum_rank(sum)'] = dec.rank_
+        #score_df.loc[:, 'Algorithm points'] = map(lambda x:'%.3f'%(x),list(dec.e_.points))
+        score_df.loc[:, 'Algorithm points'] = ['%.3f'%(x) for x in list(dec.e_.points)]
+        score_df.loc[:, 'Rank'] = dec.rank_
 
         pd.set_option('display.max_rows', None, 'display.max_columns', None)
         score_df.insert(0, "Name", company_names)
-        score_df = score_df.sort_values(by="Weighted_sum_rank(sum)")
+        score_df = score_df.sort_values(by="Rank")
         score_df = score_df.head(10)
-        print("Score df:\n", score_df)
+        #print("Score df:\n", score_df)
 
         # Making the return_dict for the front end
         return_list = []
         return_dict = score_df.to_dict("records")
+        headers = list(return_dict[0].keys())
 
-        return {"data": return_dict}
+
+        return {"headers":headers,"data": return_dict}
 
 
 api.add_resource(MCDA_rankings, '/mcda_rankings')

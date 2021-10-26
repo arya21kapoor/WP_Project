@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>About Us</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/back_to_top.css') }}">
+   </head>
+   <body style="padding-top: 65px">
+      <nav class="navbar navbar-dark navbar-expand-md bg-dark fixed-top">
+         <div class="container-fluid">
+            <a class="navbar-brand" href="{{url_for('getPage', page='home.html')}}">Custom Stocky</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"> <span class="navbar-toggler-icon"></span> </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+               <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                     Custom Stocky
+                  </h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+               </div>
+               <div class="offcanvas-body">
+                  <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                     <li class="nav-item"> <a class="nav-link" aria-current="page" href="{{url_for('getPage', page='home.html')}}">Home</a> </li>
+                     <li class="nav-item"> <a class="nav-link active" href="#">About Us</a> </li>
+                     <li class="nav-item"> <a class="nav-link" href="{{url_for('getPage', page='contactUs.html')}}">Contact Us</a> </li>
+                     <li class="nav-item"> <a class="nav-link" href="{{url_for('getMCDA',Rank_type='stat_cheap')}}">Top 10 Stocks</a> </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </nav>
+      <div class="container my-3">
+         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal">About The Company and Team</h1>
+            <p class="fs-5 text-muted"> In 2017, a group of friends spent their free hours in college discussing about trading in the stock market. Unfortunately, they did not have enough capital. So they decided to take help from their friends. They were able to raise around Rs 22,500. Within 6 months, the collected sum was doubled. The boys started getting popular and started receiving more funds from family and friends. </p>
+         </div>
+         <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7">
+               <h2 class="featurette-heading">
+                  Arya Kapoor. <span class="text-muted">Co-Founder and CIO</span>
+               </h2>
+               <p class="lead"> Arya handles investment and risk management. He is a passionate investor and a trader who specializes in modelling sophisticated strategies. He loves playing chess and table tennis. </p>
+            </div>
+            <div class="col-md-5"> <img class="img-fluid" src="about-1.jpg" alt="" /> </div>
+         </div>
+         <br>
+         <br>
+         <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7 order-md-2">
+               <h2 class="featurette-heading">
+                  Pratik Chaudhary.
+                  <span class="text-muted">Co-Founder and COO</span>
+               </h2>
+               <p class="lead"> Pratik handles operations and client management. He has the thirst to learn new things from people and is often seen interacting with many. He appreciates a good game of badminton. He loves travelling and going for long bike rides. </p>
+            </div>
+            <div class="col-md-5 order-md-1"> <img class="img-fluid" src="about-2.jpg" alt="" /> </div>
+         </div>
+         <br>
+         <br>
+         <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7">
+               <h2 class="featurette-heading">
+                  Shrenik Pokharna.
+                  <span class="text-muted">Co-Founder and Client operations</span>
+               </h2>
+               <p class="lead"> Shrenik handles our client accounts and is always enthusiastic to bring in new initiatives. An avid reader who has good knowledge in various fields. Ice cream is his weakness and he will never say no to one. </p>
+            </div>
+            <div class="col-md-5"> <img class="img-fluid" src="about-3.jpg" alt="" /> </div>
+         </div>
+         <br>
+         <br>
+         <div class="row featurette d-flex justify-content-center align-items-center">
+            <div class="col-md-7 order-md-2">
+               <h2 class="featurette-heading"> Vinay Hariya.
+                  <span class="text-muted" >Co-Founder and Marketing & Human Resource</span>
+               </h2>
+               <p class="lead"> Vinay is the creative brain behind our digital marketing. His strategies help us boost our digital presence. His innovative ideas make us stand out. He is a sports enthusiast. He loves classic rock, coffee and long drives. </p>
+            </div>
+            <div class="col-md-5 order-md-1"> <img class="img-fluid" src="about-2.jpg" alt="" /> </div>
+         </div>
+      </div>
+      <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
+         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-arrow-up" viewBox="0 0 16 20 ">
+            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+         </svg>
+      </button>
+      <footer class="container">
+         <p>© 2020-2021 Custom Stocky, Inc.</p>
+      </footer>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+      <script src="{{url_for('static', filename='js_files/back_to_top.js')}}"></script>
+   </body>
+</html>
