@@ -29,11 +29,13 @@
          </div>
       </nav>
       <div class="table-responsive my-2">
-         <a type="button" class="btn btn-primary me-2 mb-2" href="{{url_for('getMCDA',Rank_type='stat_cheap')}}">Value stocks</a>
-         <a type="button" class="btn btn-primary me-2 mb-2" href="{{url_for('getMCDA',Rank_type='high_growth')}}">Growth stocks</a>
-         <a type="button" class="btn btn-primary me-2 mb-2" href="{{url_for('getMCDA',Rank_type='debt_reduction')}}">Debt reduction stocks</a>
-         <a type="button" class="btn btn-primary me-2 mb-2" href="{{url_for('getMCDA',Rank_type='magic_formula')}}">Magic formula stocks</a>
-         <h1 class="display-6">Top 10 stocks</h1>
+         <h1 class="display-6" id="display_panel">Top 10 {{content['name']}}</h1>
+         <br><br>
+         <a type="button" value="Value stocks" class="btn btn-primary me-2 mb-2" href="{{url_for('getMCDA',Rank_type='stat_cheap')}}">Value stocks</a>
+         <a type="button" value="Growth stocks" class="btn btn-primary me-2 mb-2" href="{{url_for('getMCDA',Rank_type='high_growth')}}">Growth stocks</a>
+         <a type="button" value="Debt reduction stocks" class="btn btn-primary me-2 mb-2" href="{{url_for('getMCDA',Rank_type='debt_reduction')}}">Debt reduction stocks</a>
+         <a type="button" value="Magic formula stocks" class="btn btn-primary me-2 mb-2" href="{{url_for('getMCDA',Rank_type='magic_formula')}}">Magic formula stocks</a>
+         <br>
          <br />
          <table class="table table-bordered table-info table-striped" id="mcda_dynamic_table">
             <thead>
@@ -96,7 +98,11 @@
     <a class="text-reset fw-bold">WP Project by Arya, Vinay, Pratik, and Shrenik</a>
   </div>
 </footer>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
       <script src="{{url_for('static', filename='js_files/back_to_top.js')}}"></script>
+
    </body>
+   
+   </script>
 </html>
