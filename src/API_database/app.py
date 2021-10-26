@@ -182,7 +182,7 @@ class MCDA_rankings(Resource):
                 df = pd.read_excel(company_path, sheet_name='Data Sheet')
                 # Type of rank
                 if rank_type.lower() == 'stat_cheap':
-                    name="Value Stocks"
+                    name="Value"
                     # Fetching the data values
                     b9 = df.loc[7].iat[1]
                     k30 = df.loc[28].iat[10]
@@ -216,7 +216,7 @@ class MCDA_rankings(Resource):
 
                 elif rank_type.lower() == 'high_growth':
 
-                    name="Growth Stocks"
+                    name="Growth"
                     k17 = df.loc[15].iat[10]
                     f17 = df.loc[15].iat[5]
                     sg_five = ((k17-f17)/f17)*100
@@ -239,14 +239,14 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Sales growth after 5years(%)'] = '%.3f'%(sg_five)
-                        attribute_dict['Sales growth after 3years(%)'] = '%.3f'%(sg_three)
-                        attribute_dict['Profit growth after 5years(%)'] = '%.3f'%(pg_five)
-                        attribute_dict['Profit growth after 3years(%)'] = '%.3f'%(pg_three)
+                        attribute_dict['Sales growth after 5years (%)'] = '%.3f'%(sg_five)
+                        attribute_dict['Sales growth after 3years (%)'] = '%.3f'%(sg_three)
+                        attribute_dict['Profit growth after 5years (%)'] = '%.3f'%(pg_five)
+                        attribute_dict['Profit growth after 3years (%)'] = '%.3f'%(pg_three)
                         return_list.append(attribute_dict)
 
                 elif rank_type.lower() == "debt_reduction":
-                    name="Debt Reduction Stocks"
+                    name="Debt Reduction"
                     k57 = df.loc[55].iat[10]
                     k58 = df.loc[56].iat[10]
                     k59 = df.loc[57].iat[10]
@@ -274,13 +274,13 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Debt Reduction 3 years(Cr)'] = '%.3f'%(dr_three)
-                        attribute_dict['Debt Reduction 5 years(Cr)'] = '%.3f'%(dr_five)
-                        attribute_dict['Debt to Equity Reduction 5 years(%)'] = '%.3f'%(debt_to_er_five)
+                        attribute_dict['Debt Reduction 3 years (Cr)'] = '%.3f'%(dr_three)
+                        attribute_dict['Debt Reduction 5 years (Cr)'] = '%.3f'%(dr_five)
+                        attribute_dict['Debt to Equity Reduction 5 years (%)'] = '%.3f'%(debt_to_er_five)
                         return_list.append(attribute_dict)
 
                 elif rank_type.lower() == "magic_formula":
-                    name="Magic formula stocks"
+                    name="Magic Formula"
                     k30 = df.loc[28].iat[10]
                     j30 = df.loc[28].iat[9]
                     i30 = df.loc[28].iat[8]
@@ -303,7 +303,7 @@ class MCDA_rankings(Resource):
                         attribute_dict = {}
                         company_names.append(company_name)
                         attribute_dict['Company name'] = company_name
-                        attribute_dict['Return on Equity 3 years(%)'] = '%.3f'%(roe_three)
+                        attribute_dict['Return on Equity 3 years (%)'] = '%.3f'%(roe_three)
                         attribute_dict['Earning Yield'] = '%.3f'%(earning_yield)
                         return_list.append(attribute_dict)
 
